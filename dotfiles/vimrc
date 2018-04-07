@@ -9,10 +9,10 @@
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 " https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " vim-plug 管理的插件列表必须位于 plug#begin() 和 plug#end() 之间
-if has('win32')
-    call plug#begin('~/vimfiles/plugged')
-else
+if has('unix')
     call plug#begin('~/.vim/plugged')
+else
+    call plug#begin('~/vimfiles/plugged')
 endif
 
 "自己添加的插件
@@ -43,7 +43,9 @@ Plug 'gcmt/wildfire.vim'
 Plug 'sjl/gundo.vim'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'suan/vim-instant-markdown'
-Plug 'Valloric/YouCompleteMe'
+if has('unix')
+    Plug 'Valloric/YouCompleteMe'
+endif
 
 " 插件列表结束
 call plug#end()
@@ -156,9 +158,11 @@ set hlsearch
 " 其他美化
 
 " 设置 gvim 显示字体
-set guifont=Consolas:h12
-"set guifont=Hermit\ NF:h11
-"set guifont=UbuntuMono\ NF:h12
+if 0 == has('unix')
+    set guifont=Consolas:h12
+    "set guifont=Hermit\ NF:h11
+    "set guifont=UbuntuMono\ NF:h12
+endif
 " 禁止折行
 "set nowrap
 
@@ -273,10 +277,11 @@ nmap <Leader>tn :tnext<CR>
 nmap <Leader>tp :tprevious<CR>
 
 " 基于语义的代码导航
-
-"nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
-" 只能是 #include 或已打开的文件
-"nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+if has('unix')
+    nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
+    " 只能是 #include 或已打开的文件
+    nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+endif
 
 " <<
 
@@ -327,55 +332,57 @@ nnoremap <Leader>rc :call Replace(1, 0, input('Replace '.expand('<cword>').' wit
 nnoremap <Leader>rcw :call Replace(1, 1, input('Replace '.expand('<cword>').' with: '))<CR>
 nnoremap <Leader>rwc :call Replace(1, 1, input('Replace '.expand('<cword>').' with: '))<CR>
 
-" <<
+if has('unix')
+    " <<
 
-" >>
-" YCM 补全
+    " >>
+    " YCM 补全
 
-" YCM 补全菜单配色
-" 菜单
-"highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
-" 选中项
-"highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
+    " YCM 补全菜单配色
+    " 菜单
+    "highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
+    " 选中项
+    "highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
 
-" 补全功能在注释中同样有效
-let g:ycm_complete_in_comments=1
+    " 补全功能在注释中同样有效
+    let g:ycm_complete_in_comments=1
 
-" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
-let g:ycm_confirm_extra_conf=0
+    " 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+    let g:ycm_confirm_extra_conf=0
 
-" 开启 YCM 标签补全引擎
-"let g:ycm_collect_identifiers_from_tags_files=0
-"" 引入 C++ 标准库 tags
-"set tags+=/data/misc/software/app/vim/stdcpp.tags
-"set tags+=/data/misc/software/app/vim/sys.tags
+    " 开启 YCM 标签补全引擎
+    "let g:ycm_collect_identifiers_from_tags_files=0
+    "" 引入 C++ 标准库 tags
+    "set tags+=/data/misc/software/app/vim/stdcpp.tags
+    "set tags+=/data/misc/software/app/vim/sys.tags
 
-" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-"inoremap ;; <C-x><C-o>
+    " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
+    "inoremap ;; <C-x><C-o>
 
-" 补全内容不以分割子窗口形式出现，只显示补全列表
-set completeopt-=preview
+    " 补全内容不以分割子窗口形式出现，只显示补全列表
+    set completeopt-=preview
 
-" 从第一个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion=1
+    " 从第一个键入字符就开始罗列匹配项
+    let g:ycm_min_num_of_chars_for_completion=1
 
-" 禁止缓存匹配项，每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
+    " 禁止缓存匹配项，每次都重新生成匹配项
+    let g:ycm_cache_omnifunc=0
 
-" 语法关键字补全
-let g:ycm_seed_identifiers_with_syntax=1
+    " 语法关键字补全
+    let g:ycm_seed_identifiers_with_syntax=1
 
-" <<
- 
-" >>
-" 库信息参考
- 
-" 启用:Man命令查看各类man信息
-"source $VIMRUNTIME/ftplugin/man.vim
+    " <<
+     
+    " >>
+    " 库信息参考
+     
+    " 启用:Man命令查看各类man信息
+    source $VIMRUNTIME/ftplugin/man.vim
 
-" 定义:Man命令查看各类man信息的快捷键
-"nmap <Leader>Man :Man 3 <cword><CR>
+    " 定义:Man命令查看各类man信息的快捷键
+    nmap <Leader>M :Man 3 <cword><CR>
 
+endif
 " <<
 
 " >>
