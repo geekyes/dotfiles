@@ -495,6 +495,8 @@ let g:Lf_CacheDirectory = expand('~/.cache/LeaderF')
 let g:Lf_ShowRelativePath = 0
 " 不知道，慢慢了解吧！！！
 let g:Lf_HideHelp = 1
+" 不让光标闪烁
+let g:Lf_CursorBlink = 0
 " 主题，可以使用airline的主题
 let g:Lf_StlColorscheme = 'simple'
  
