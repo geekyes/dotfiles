@@ -26,7 +26,7 @@ def cfg():
     print('cfg ...')
     print('''请手动添加
         source /usr/share/autojump/autojump.sh
-        plugins = (git vi-mode autojump wd z)
+        plugins = (git vi-mode wd z)
         到  ~/.zshrc 文件中''')
     os.system('ln -s ' + script_dir + "/vimrc " + home_dir + '/.vimrc')
     os.system('ln -s ' + script_dir + "/tmux.conf " + home_dir + '/.tmux.conf')
