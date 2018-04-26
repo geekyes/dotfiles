@@ -1,5 +1,6 @@
 " 直接修改
 " https://github.com/yangyangwithgnu/use_vim_as_ide/blob/master/README.md
+" TODO 添加参考配置的大大的博客地址
 " 大大的配置
 
 " >>>>
@@ -24,19 +25,17 @@ Plug 'mhinz/vim-startify'
 Plug 'Yggdroot/indentLine'
 Plug 'jiangmiao/auto-pairs'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'w0rp/ale'
 if has('unix')
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+    Plug 'mhinz/vim-signify'
 else
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 endif
-Plug 'mhinz/vim-signify'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-syntax'
 Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 Plug 'sgur/vim-textobj-parameter'
-Plug 'Shougo/echodoc.vim'
 """""""""""""""""""""
 
 Plug 'altercation/vim-colors-solarized'
@@ -48,9 +47,11 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'gcmt/wildfire.vim'
-Plug 'sjl/gundo.vim'
-Plug 'Lokaltog/vim-easymotion'
 Plug 'suan/vim-instant-markdown'
+if 0 == has('unix')
+    Plug 'sjl/gundo.vim'
+endif
+Plug 'Lokaltog/vim-easymotion'
 if has('unix')
     Plug 'Valloric/YouCompleteMe'
 endif
@@ -244,10 +245,10 @@ let g:multi_cursor_next_key='<S-n>'
 let g:multi_cursor_skip_key='<S-k>'
 " <<
 
-if has('unix')
-    " >>
-    " YCM 补全
+" >>
+" YCM 补全
 
+if has('unix')
     " YCM 补全菜单配色
     " 菜单
     "highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
@@ -280,8 +281,8 @@ if has('unix')
 
     " 语法关键字补全
     let g:ycm_seed_identifiers_with_syntax=1
-    " <<
 endif
+" <<
 
 " >>
 " 工程文件浏览
@@ -330,14 +331,17 @@ let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "i>", "ip"]
 " <<
 
 if 0 == has('unix')
-    " 调用 gundo 树
+    " 调用 gundo 树，在win下需要安装Python2
     nnoremap <Leader>ud :GundoToggle<CR>
 endif
 
 
 """"""""""""""""""""""""""""""""自(己)适应的配置""""""""""""""""""""""""""""""""
+if has('unix')
+    " YCM 需要
+    set encoding=utf-8
+endif
 " win下乱码问题或是在linux下打开win创建的文件
-set encoding=utf-8
 set fileencodings=utf-8,gbk,big5,cp936,gb18030,gb2312,utf-16
 " 设置一行最多80个字符，命令：gq
 set textwidth=80
@@ -353,8 +357,8 @@ if has("cscope")
     set cst
     set nocsverb
     " add any database in current directory
-    if filereadable("build/cscope.out")
-        cs add build/cscope.out
+    if filereadable("cscope.out")
+        cs add cscope.out
     endif
   set csverb
 endif
@@ -371,7 +375,6 @@ nmap <C-j>a :cs find a <C-R>=expand("<cword>")<CR><CR>
 
 " 加载工程的tags
 set tags=./.tags;,.tags
-
 
 " <<    插件配置区
  
@@ -401,18 +404,6 @@ let g:ctrlsf_mapping = {
         \ "vsplit": "o",
         \ "open": "<CR>",
         \ }
-
-" <<    tagbar key mapping
-" 设置显示声明的快捷键
-let g:tagbar_map_showproto = "d" 
-" 设置切换折叠的快捷键
-let g:tagbar_map_togglefold = "za"
-" 设置跳转到函数的快捷键
-let g:tagbar_map_jump = "o"
-" }
-
-" {    asyncrun 设置quickfix输出编码
-let g:asyncrun_encs = "cp936"
 " }
 
 " {    ctrlsf后端程序设置
@@ -426,7 +417,7 @@ nmap <Leader>i :IndentLinesToggle<CR>
 
 " { 	vim-gutentags
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', 'cscope.files']
  
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
@@ -446,27 +437,14 @@ if !isdirectory(s:vim_tags)
 endif
 " }
 
-" {    asyncrun 自动打开
+" {    asyncrun
+" asyncrun 设置quickfix输出编码
+let g:asyncrun_encs = "cp936"
 " 自动打开 quickfix window ，高度为 6
 let g:asyncrun_open = 6
  
 " 任务结束时候响铃提醒
 let g:asyncrun_bell = 1
-" }
-
-" {    ale 代码动态检测
-let g:ale_linters_explicit = 1
-let g:ale_completion_delay = 500
-let g:ale_echo_delay = 20
-let g:ale_lint_delay = 500
-let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
- 
-let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-"let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
-let g:ale_c_cppcheck_options = ''
-"let g:ale_cpp_cppcheck_options = ''
 " }
 
 " {     LeaderF 
@@ -484,7 +462,7 @@ noremap <Leader>ta :LeaderfTag<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
  
 " 先父目录寻找工程根目录
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', 'cscope.files']
 " 工程目录模式 (没理解起！！！)
 let g:Lf_WorkingDirectoryMode = 'Ac'
 " 打开的分割窗口的高度
