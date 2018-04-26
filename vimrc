@@ -456,7 +456,7 @@ noremap <Leader>ru :LeaderfMru<cr>
 " 列出当前文件的函数
 noremap <Leader>tt :LeaderfFunction<cr>
 " 打开vim的buffer
-"noremap <Leader>bf :LeaderfBuffer<cr>
+noremap <Leader>bf :LeaderfBuffer<cr>
 " 列出本文件tag
 noremap <Leader>ta :LeaderfTag<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
