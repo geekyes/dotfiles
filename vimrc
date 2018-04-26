@@ -238,14 +238,6 @@ nnoremap <Leader>sp :CtrlSF<CR>
 " <<
 
 " >>
-" 内容替换
-
-" 快捷替换
-let g:multi_cursor_next_key='<S-n>'
-let g:multi_cursor_skip_key='<S-k>'
-" <<
-
-" >>
 " YCM 补全
 
 if has('unix')
