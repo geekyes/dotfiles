@@ -365,9 +365,6 @@ nmap <C-j>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <C-j>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <C-j>a :cs find a <C-R>=expand("<cword>")<CR><CR>
 
-" 加载工程的tags
-set tags=./.tags;,.tags
-
 " <<    插件配置区
  
 " {    vim-airline 配置
