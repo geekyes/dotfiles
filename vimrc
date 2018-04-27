@@ -1,7 +1,7 @@
 " 直接修改
 " https://github.com/yangyangwithgnu/use_vim_as_ide/blob/master/README.md
-" TODO 添加参考配置的大大的博客地址
 " 大大的配置
+" 异步插件参考博客： http://www.skywind.me/blog/archives/2084
 
 " >>>>
 " 插件安装
