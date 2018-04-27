@@ -409,7 +409,7 @@ nmap <Leader>i :IndentLinesToggle<CR>
 
 " { 	vim-gutentags
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', 'cscope.files']
+let g:gutentags_project_root = ['.gitignore', '.root', '.svn', '.git', '.hg', '.project', 'cscope.files']
  
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
@@ -443,7 +443,7 @@ let g:asyncrun_bell = 1
 " 搜索工程下文件 类似ctrlp
 let g:Lf_ShortcutF = '<c-p>'
 " 打开vim的buffer
-let g:Lf_ShortcutB = '<c-n>'
+"let g:Lf_ShortcutB = '<c-n>'
 noremap <Leader>ru :LeaderfMru<cr>
 " 列出当前文件的函数
 noremap <Leader>tt :LeaderfFunction<cr>
@@ -454,7 +454,7 @@ noremap <Leader>ta :LeaderfTag<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
  
 " 先父目录寻找工程根目录
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', 'cscope.files']
+let g:Lf_RootMarkers = ['.gitignore' ,'.project', '.root', '.svn', '.git', 'cscope.files']
 " 工程目录模式 (没理解起！！！)
 let g:Lf_WorkingDirectoryMode = 'Ac'
 " 打开的分割窗口的高度
