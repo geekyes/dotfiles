@@ -454,7 +454,7 @@ noremap <Leader>ta :LeaderfTag<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
  
 " 先父目录寻找工程根目录
-let g:Lf_RootMarkers = ['.gitignore' ,'.project', '.root', '.svn', '.git', 'cscope.files']
+let g:Lf_RootMarkers = ['.gitignore', '.project', '.root', '.svn', '.git', 'cscope.files']
 " 工程目录模式 (没理解起！！！)
 let g:Lf_WorkingDirectoryMode = 'Ac'
 " 打开的分割窗口的高度
