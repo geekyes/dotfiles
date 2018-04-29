@@ -4,7 +4,7 @@ import os
 
 # 安装zsh, vim, tmux
 def tool_install():
-    tool_install_list = ['zsh', 'vim', 'tmux', 'curl', 'autojump']
+    tool_install_list = ['zsh', 'vim', 'tmux', 'curl']
     if ('posix' == os.name):
         for i in tool_install_list:
             if (not os.path.exists('/usr/bin/' + i)):
