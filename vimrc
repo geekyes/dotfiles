@@ -36,6 +36,7 @@ Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-syntax'
 Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 Plug 'sgur/vim-textobj-parameter'
+Plug 'jsfaint/gen_tags.vim'
 """""""""""""""""""""
 
 Plug 'altercation/vim-colors-solarized'
@@ -342,18 +343,6 @@ set colorcolumn=+1
 " 在命令模式下(在命令模式有效)将<up> <down> 映射到 <c-p> <c-n>
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
-" cscope配置
-if has("cscope")
-    set csprg=cscope
-    set csto=1
-    set cst
-    set nocsverb
-    " add any database in current directory
-    if filereadable("cscope.out")
-        cs add cscope.out
-    endif
-  set csverb
-endif
 " cscope的查找快捷键
 nmap <C-j>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 nmap <C-j>g :cs find g <C-R>=expand("<cword>")<CR><CR>
@@ -404,7 +393,17 @@ let g:indentLine_enabled=1
 nmap <Leader>i :IndentLinesToggle<CR>
 " }
 
-" { 	vim-gutentags
+" {     asyncrun
+" asyncrun 设置quickfix输出编码
+let g:asyncrun_encs = "cp936"
+" 自动打开 quickfix window ，高度为 6
+let g:asyncrun_open = 6
+ 
+" 任务结束时候响铃提醒
+let g:asyncrun_bell = 1
+" }
+
+" {     vim-gutentags 来自动生成工程的tags文件
 " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
 let g:gutentags_project_root = ['.gitignore', '.root', '.svn', '.git', '.hg', '.project', 'cscope.files']
  
@@ -424,16 +423,6 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 if !isdirectory(s:vim_tags)
     silent! call mkdir(s:vim_tags, 'p')
 endif
-" }
-
-" {    asyncrun
-" asyncrun 设置quickfix输出编码
-let g:asyncrun_encs = "cp936"
-" 自动打开 quickfix window ，高度为 6
-let g:asyncrun_open = 6
- 
-" 任务结束时候响铃提醒
-let g:asyncrun_bell = 1
 " }
 
 " {     LeaderF 
@@ -479,3 +468,11 @@ let g:Lf_NormalMap = {
     \ }
 " }
 
+" {    gen_tags 来自动加载工程的交叉引用的数据库
+" 使用gtags来生成标签
+let g:loaded_gentags#gtags = 0
+" gtags自动生成标签
+let g:gen_tags#gtags_auto_gen = 1
+" 忽略某些文件夹
+let g:gen_tags#blacklist = ['$HOME']
+" }
