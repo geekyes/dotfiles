@@ -409,7 +409,7 @@ let g:Lf_ShortcutF = '<c-p>'
 "let g:Lf_ShortcutB = '<c-n>'
 noremap <Leader>hs :LeaderfMru<cr>
 " 列出当前文件的函数
-noremap <Leader>fl :LeaderfFunction<cr>
+noremap <Leader>ff :LeaderfFunction<cr>
 " 打开vim的buffer
 noremap <Leader>b :LeaderfBuffer<cr>
 " 列出本文件tag
