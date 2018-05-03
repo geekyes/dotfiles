@@ -24,7 +24,6 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'mhinz/vim-startify'
 Plug 'Yggdroot/indentLine'
 Plug 'jiangmiao/auto-pairs'
-Plug 'ludovicchabant/vim-gutentags'
 if has('unix')
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     Plug 'mhinz/vim-signify'
@@ -362,7 +361,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " 设置主题
 let g:airline_theme="simple"
-" 这个是安装字体后必须设置此项" 
+" 这个是安装字体后必须设置此项
 "let g:airline_powerline_fonts = 1 
 " 关闭状态显示空白符号计数"
 let g:airline#extensions#whitespace#enabled = 0
@@ -375,16 +374,16 @@ endif
 let g:airline_symbols.linenr = 'LN '
 " }
 
-" {    ctrl-sf key mapping
+" {    ctrl-sf
+" key mapping
 let g:ctrlsf_mapping = {
         \ "next": "n",
         \ "prev": "N",
         \ "vsplit": "o",
         \ "open": "<CR>",
         \ }
-" }
 
-" {    ctrlsf后端程序设置
+" ctrlsf后端程序设置
 let g:ctrlsf_ackprg = 'ack'
 " }
 
@@ -403,44 +402,22 @@ let g:asyncrun_open = 6
 let g:asyncrun_bell = 1
 " }
 
-" {     vim-gutentags 来自动生成工程的tags文件
-" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-let g:gutentags_project_root = ['.gitignore', '.root', '.svn', '.git', '.hg', '.project', 'cscope.files']
- 
-" 所生成的数据文件的名称
-let g:gutentags_ctags_tagfile = '.tags'
- 
-" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-let s:vim_tags = expand('~/.cache/tags')
-let g:gutentags_cache_dir = s:vim_tags
- 
-" 配置 ctags 的参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
- 
-" 检测 ~/.cache/tags 不存在就新建
-if !isdirectory(s:vim_tags)
-    silent! call mkdir(s:vim_tags, 'p')
-endif
-" }
-
 " {     LeaderF 
 " 搜索工程下文件 类似ctrlp
 let g:Lf_ShortcutF = '<c-p>'
 " 打开vim的buffer
 "let g:Lf_ShortcutB = '<c-n>'
-noremap <Leader>ru :LeaderfMru<cr>
+noremap <Leader>hs :LeaderfMru<cr>
 " 列出当前文件的函数
-noremap <Leader>tt :LeaderfFunction<cr>
+noremap <Leader>fl :LeaderfFunction<cr>
 " 打开vim的buffer
 noremap <Leader>b :LeaderfBuffer<cr>
 " 列出本文件tag
-noremap <Leader>ta :LeaderfTag<cr>
+"noremap <Leader>ta :LeaderfTag<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
  
 " 先父目录寻找工程根目录
-let g:Lf_RootMarkers = ['.gitignore', '.project', '.root', '.svn', '.git', 'cscope.files']
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
 " 工程目录模式 (没理解起！！！)
 let g:Lf_WorkingDirectoryMode = 'Ac'
 " 打开的分割窗口的高度
@@ -476,3 +453,4 @@ let g:gen_tags#gtags_auto_gen = 1
 " 忽略某些文件夹
 let g:gen_tags#blacklist = ['$HOME']
 " }
+
