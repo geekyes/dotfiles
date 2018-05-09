@@ -454,3 +454,7 @@ let g:gen_tags#gtags_auto_gen = 1
 let g:gen_tags#blacklist = ['$HOME']
 " }
 
+" {    nerdcommenter c语言注解的风格
+"let g:NERDCustomDelimiters = { 'c': { 'left': '/* ','right': ' */' } }
+let g:NERDSpaceDelims=1
+" }
