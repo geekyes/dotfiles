@@ -42,15 +42,11 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
 Plug 'vim-scripts/phd'
 Plug 'derekwyatt/vim-fswitch'
-Plug 'dyng/ctrlsf.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'gcmt/wildfire.vim'
 Plug 'suan/vim-instant-markdown'
-if 0 == has('unix')
-    Plug 'sjl/gundo.vim'
-endif
 Plug 'Lokaltog/vim-easymotion'
 if has('unix')
     Plug 'Valloric/YouCompleteMe'
@@ -231,13 +227,6 @@ endif
 " <<
 
 " >>
-" 查找
-
-" 使用 ctrlsf.vim 插件在工程内全局查找光标所在关键字，设置快捷键。快捷键速记法：search in project
-nnoremap <Leader>sp :CtrlSF<CR>
-" <<
-
-" >>
 " YCM 补全
 
 if has('unix')
@@ -322,12 +311,6 @@ vmap <Leader>v <Plug>(wildfire-water)
 let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "i>", "ip"]
 " <<
 
-if 0 == has('unix')
-    " 调用 gundo 树，在win下需要安装Python2
-    nnoremap <Leader>ud :GundoToggle<CR>
-endif
-
-
 """"""""""""""""""""""""""""""""自(己)适应的配置""""""""""""""""""""""""""""""""
 if has('unix')
     " YCM 需要
@@ -372,19 +355,6 @@ if !exists('g:airline_symbols')
 endif
 
 let g:airline_symbols.linenr = 'LN '
-" }
-
-" {    ctrl-sf
-" key mapping
-let g:ctrlsf_mapping = {
-        \ "next": "n",
-        \ "prev": "N",
-        \ "vsplit": "o",
-        \ "open": "<CR>",
-        \ }
-
-" ctrlsf后端程序设置
-let g:ctrlsf_ackprg = 'ack'
 " }
 
 " {    indentLine
