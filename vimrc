@@ -364,7 +364,9 @@ nmap <Leader>i :IndentLinesToggle<CR>
 
 " {     asyncrun
 " asyncrun 设置quickfix输出编码
-let g:asyncrun_encs = "cp936"
+if 0 == has('unix')
+    let g:asyncrun_encs = "cp936"
+endif
 " 自动打开 quickfix window ，高度为 6
 let g:asyncrun_open = 80
  
