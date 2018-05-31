@@ -46,9 +46,9 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'gcmt/wildfire.vim'
-Plug 'suan/vim-instant-markdown'
 Plug 'Lokaltog/vim-easymotion'
 if has('unix')
+    Plug 'suan/vim-instant-markdown'
     Plug 'Valloric/YouCompleteMe'
 endif
 
