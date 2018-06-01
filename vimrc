@@ -316,7 +316,7 @@ if has('unix')
     set encoding=utf-8
 endif
 " win下乱码问题或是在linux下打开win创建的文件
-set fileencodings=utf-8,gbk,big5,cp936,gb18030,gb2312,utf-16
+set fileencodings=utf-8,ucs-bom,gbk,big5,cp936,gb18030,gb2312
 " 设置一行最多80个字符，命令：gq
 set textwidth=80
 " this makes the color after the textwidth column highlighted
@@ -334,6 +334,9 @@ nmap <C-j>e :cs find e <C-R>=expand("<cword>")<CR><CR>
 nmap <C-j>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <C-j>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <C-j>a :cs find a <C-R>=expand("<cword>")<CR><CR>
+
+set wildmenu             " vim自身命名行模式智能补全
+set completeopt-=preview " 补全时不显示窗口，只显示补全列表
 
 " <<    插件配置区
  
