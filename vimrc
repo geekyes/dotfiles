@@ -27,6 +27,8 @@ Plug 'jiangmiao/auto-pairs'
 if has('unix')
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     Plug 'mhinz/vim-signify'
+    Plug 'junegunn/gv.vim'
+    Plug 'tpope/vim-fugitive'
 else
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 endif
@@ -36,6 +38,7 @@ Plug 'kana/vim-textobj-syntax'
 Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 Plug 'sgur/vim-textobj-parameter'
 Plug 'jsfaint/gen_tags.vim'
+Plug 'junegunn/vim-slash'
 """""""""""""""""""""
 
 Plug 'altercation/vim-colors-solarized'
@@ -337,6 +340,54 @@ nmap <C-j>a :cs find a <C-R>=expand("<cword>")<CR><CR>
 
 set wildmenu             " vim自身命名行模式智能补全
 set completeopt-=preview " 补全时不显示窗口，只显示补全列表
+
+" 当新建 .h .c .hpp .cpp .mk .sh等文件时自动调用SetTitle 函数
+autocmd BufNewFile *.[ch],Makefile,*.mk exec ":call SetTitle()"
+
+" 加入注释
+func SetComment(line, comment)
+    if (a:line > 0)
+        if (a:comment == "#")
+            call append(a:line + 0 - 1, a:comment."================================================================")
+        else
+            call append(a:line + 0 - 1,"/".a:comment."================================================================")
+        endif
+        call append(a:line + 1 - 1, a:comment."                source for TODO")
+        call append(a:line + 2 - 1, a:comment."   ")
+        call append(a:line + 3 - 1, a:comment."   filename   : ".expand("%:t"))
+        call append(a:line + 4 - 1, a:comment."   author     : chenjiang")
+        call append(a:line + 5 - 1, a:comment."   date       : ".strftime("%Y-%m-%d"))
+        call append(a:line + 6 - 1, a:comment."   description: TODO")
+        call append(a:line + 7 - 1, a:comment."")
+        if (a:comment == "#")
+            call append(a:line + 8 - 1, a:comment."================================================================")
+        else
+            call append(a:line + 8 - 1, "================================================================*/")
+        endif
+        call append(a:line + 9 - 1, "")
+        call append(a:line + 10 - 1, "")
+    endif
+endfunc
+
+" 定义函数SetTitle，自动插入文件头
+func SetTitle()
+    if &filetype == 'make'
+        call append(1 - 1,"") " 魔法数，嘻嘻
+        call append(2 - 1,"") " 这是因为append函数是从下一行开始插入
+        call SetComment(4, "#") " 空两行
+    else
+        call SetComment(1, "*")
+        let l:line = 10 " 定位说明的行数
+        if expand("%:e") == 'h'
+            call append(l:line + 0, "#ifndef ".toupper(expand("%:t:r"))."_H__")
+            call append(l:line + 1, "#define ".toupper(expand("%:t:r"))."_H__")
+            call append(l:line + 2, "")
+            call append(l:line + 3, "#endif /* ".toupper(expand("%:t:r"))."_H__ */")
+        elseif &filetype == 'c'
+            call append(l:line + 0, "#include \"".expand("%:t:r").".h\"")
+        endif
+    endif
+endfunc
 
 " <<    插件配置区
  
