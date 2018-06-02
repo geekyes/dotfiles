@@ -393,8 +393,8 @@ endfunc
  
 " {    vim-airline 配置
 " 是否打开tabline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#buffer_nr_show = 1
 " 设置主题
 let g:airline_theme="simple"
 " 这个是安装字体后必须设置此项
