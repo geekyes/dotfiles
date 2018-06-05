@@ -341,8 +341,8 @@ nmap <C-j>a :cs find a <C-R>=expand("<cword>")<CR><CR>
 set wildmenu             " vim自身命名行模式智能补全
 set completeopt-=preview " 补全时不显示窗口，只显示补全列表
 
-" 当新建 .h .c .hpp .cpp .mk .sh等文件时自动调用SetTitle 函数
-autocmd BufNewFile *.[ch],Makefile,*.mk exec ":call SetTitle()"
+" 当新建 .py .h .c .S makefile 等文件时自动调用SetTitle 函数
+autocmd BufNewFile *.py,*.[chS],[Mm]akefile,*.mk exec ":call SetTitle()"
 
 " 加入注释
 func SetComment(line, comment)
@@ -375,6 +375,10 @@ func SetTitle()
         call append(1 - 1,"") " 魔法数，嘻嘻
         call append(2 - 1,"") " 这是因为append函数是从下一行开始插入
         call SetComment(4, "#") " 空两行
+    elseif expand("%:e") == 'py'
+        call append(1 - 1,"")
+        call append(2 - 1,"")
+        call SetComment(4, "#")
     else
         call SetComment(1, "*")
         let l:line = 10 " 定位说明的行数
