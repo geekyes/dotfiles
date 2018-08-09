@@ -21,9 +21,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yianwillis/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'mhinz/vim-startify'
 Plug 'Yggdroot/indentLine'
 Plug 'jiangmiao/auto-pairs'
+Plug 'mhinz/vim-startify'
 if has('unix')
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     Plug 'mhinz/vim-signify'
@@ -52,6 +52,10 @@ Plug 'gcmt/wildfire.vim'
 Plug 'Lokaltog/vim-easymotion'
 if has('unix')
     Plug 'Valloric/YouCompleteMe'
+else
+    " 安装教程： https://www.zhihu.com/question/25437050/answer/95662340
+    set runtimepath+=d:\tools\bin\youcompleteme\YouCompleteMe
+    let g:ycm_server_python_interpreter = 'd:\tools\bin\youcompleteme\python27_32bit\python.exe'
 endif
 
 " 插件列表结束
@@ -168,7 +172,7 @@ set hlsearch
 " 其他美化
 
 " 设置 gvim 显示字体
-if 0 == has('unix')
+if !has('unix')
     set guifont=Consolas:h12
     "set guifont=Hermit\ NF:h11
     "set guifont=UbuntuMono\ NF:h12
@@ -220,51 +224,46 @@ nmap <silent> <Leader>sw :FSHere<cr>
 
 " >>
 " 基于语义的代码导航
-
-if has('unix')
-    nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
-    " 只能是 #include 或已打开的文件
-    nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-endif
+nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
+" 只能是 #include 或已打开的文件
+nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 " <<
 
 " >>
 " YCM 补全
 
-if has('unix')
-    " YCM 补全菜单配色
-    " 菜单
-    "highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
-    " 选中项
-    "highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
+" YCM 补全菜单配色
+" 菜单
+"highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
+" 选中项
+"highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
 
-    " 补全功能在注释中同样有效
-    let g:ycm_complete_in_comments=1
+" 补全功能在注释中同样有效
+let g:ycm_complete_in_comments=1
 
-    " 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
-    let g:ycm_confirm_extra_conf=0
+" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+let g:ycm_confirm_extra_conf=0
 
-    " 开启 YCM 标签补全引擎
-    "let g:ycm_collect_identifiers_from_tags_files=0
-    "" 引入 C++ 标准库 tags
-    "set tags+=/data/misc/software/app/vim/stdcpp.tags
-    "set tags+=/data/misc/software/app/vim/sys.tags
+" 开启 YCM 标签补全引擎
+"let g:ycm_collect_identifiers_from_tags_files=0
+"" 引入 C++ 标准库 tags
+"set tags+=/data/misc/software/app/vim/stdcpp.tags
+"set tags+=/data/misc/software/app/vim/sys.tags
 
-    " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-    "inoremap ;; <C-x><C-o>
+" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
+"inoremap ;; <C-x><C-o>
 
-    " 补全内容不以分割子窗口形式出现，只显示补全列表
-    set completeopt-=preview
+" 补全内容不以分割子窗口形式出现，只显示补全列表
+set completeopt-=preview
 
-    " 从第一个键入字符就开始罗列匹配项
-    let g:ycm_min_num_of_chars_for_completion=1
+" 从第一个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=1
 
-    " 禁止缓存匹配项，每次都重新生成匹配项
-    let g:ycm_cache_omnifunc=0
+" 禁止缓存匹配项，每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0
 
-    " 语法关键字补全
-    let g:ycm_seed_identifiers_with_syntax=1
-endif
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax=1
 " <<
 
 " >>
@@ -314,10 +313,8 @@ let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "i>", "ip"]
 " <<
 
 """"""""""""""""""""""""""""""""自(己)适应的配置""""""""""""""""""""""""""""""""
-if has('unix')
-    " YCM 需要
-    set encoding=utf-8
-endif
+" YCM 需要
+set encoding=utf-8
 " win下乱码问题或是在linux下打开win创建的文件
 set fileencodings=utf-8,ucs-bom,gbk,big5,cp936,gb18030,gb2312
 " 设置一行最多80个字符，命令：gq
@@ -421,7 +418,7 @@ nmap <Leader>i :IndentLinesToggle<CR>
 
 " {     asyncrun
 " asyncrun 设置quickfix输出编码
-if 0 == has('unix')
+if !has('unix')
     let g:asyncrun_encs = "cp936"
 endif
 " 自动打开 quickfix window ，高度为 6
