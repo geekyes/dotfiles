@@ -484,3 +484,18 @@ let g:gen_tags#blacklist = ['$HOME']
 "let g:NERDCustomDelimiters = { 'c': { 'left': '/* ','right': ' */' } }
 let g:NERDSpaceDelims=1
 " }
+
+" {    YouCompleteMe 附加配置
+" 触发语义补齐
+let g:ycm_semantic_triggers =  {
+			\ 'c,cpp,python': ['re!\w{2}'],
+			\ 'lua': ['re!\w{2}'],
+			\ }
+" 只有下面后缀的文件才启动分析
+let g:ycm_filetype_whitelist = { 
+			\ "c":1,
+			\ "cpp":1, 
+			\ "py":1,
+			\ "sh":1,
+			\ }
+" }
