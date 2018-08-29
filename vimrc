@@ -417,11 +417,7 @@ nmap <Leader>i :IndentLinesToggle<CR>
 " }
 
 " {     asyncrun
-" asyncrun 设置quickfix输出编码
-if !has('unix')
-    let g:asyncrun_encs = "cp936"
-endif
-" 自动打开 quickfix window ，高度为 6
+" 自动打开 quickfix window，其值为打开的高度
 let g:asyncrun_open = 80
  
 " 任务结束时候响铃提醒
