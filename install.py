@@ -12,22 +12,13 @@ def tool_install():
                     print (i + ' install failure!!!\n')
                     exit(-1)
 
-def oh_my_zsh_install():
-    home_dir = os.environ['HOME']
-    if (not os.path.exists(home_dir + '/.oh-my-zsh')):
-        print('install oh-my-zsh ...\n')
-        if (os.system('sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"')):
-            print('oh-my-zsh install failure!!!\n')
-            exit(-1)
-
 def cfg():
     script_dir = os.path.abspath('.')
     home_dir = os.environ['HOME']
     print('cfg ...')
-    print('''请手动添加
-        source /usr/share/autojump/autojump.sh
-        plugins = (git vi-mode wd z)
-        到  ~/.zshrc 文件中''')
+    print('''
+        install oh-my-zsh: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+        add plugins = (git vi-mode wd z) to ~/.zshrc''')
     os.system('ln -s ' + script_dir + "/vimrc " + home_dir + '/.vimrc')
     os.system('ln -s ' + script_dir + "/tmux.conf " + home_dir + '/.tmux.conf')
 
@@ -35,4 +26,3 @@ def cfg():
 if (__name__ == '__main__'):
     tool_install()
     cfg()
-    oh_my_zsh_install()
