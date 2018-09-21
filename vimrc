@@ -26,12 +26,12 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mhinz/vim-startify'
 if has('unix')
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-    Plug 'mhinz/vim-signify'
-    Plug 'junegunn/gv.vim'
-    Plug 'tpope/vim-fugitive'
 else
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 endif
+Plug 'mhinz/vim-signify'
+Plug 'junegunn/gv.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-syntax'
