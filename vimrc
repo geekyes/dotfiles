@@ -21,7 +21,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yianwillis/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'jiangmiao/auto-pairs'
 Plug 'mhinz/vim-startify'
 if has('unix')
@@ -32,21 +32,23 @@ endif
 Plug 'mhinz/vim-signify'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-indent'
-Plug 'kana/vim-textobj-syntax'
-Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
-Plug 'sgur/vim-textobj-parameter'
-Plug 'jsfaint/gen_tags.vim'
+Plug 'kana/vim-textobj-user', { 'for':['c', 'cpp', 'python', 'vim'] }
+Plug 'kana/vim-textobj-indent', { 'for':['c', 'cpp', 'python', 'vim'] }
+Plug 'kana/vim-textobj-syntax', { 'for':['c', 'cpp', 'python', 'vim'] }
+Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'python', 'vim'] }
+Plug 'sgur/vim-textobj-parameter', { 'for':['c', 'cpp', 'python', 'vim'] }
+Plug 'jsfaint/gen_tags.vim', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'junegunn/vim-slash'
+Plug 'junegunn/vim-easy-align'
+Plug 'w0rp/ale', { 'for':['c', 'cpp', 'python', 'vim'] }
 """""""""""""""""""""
 
 Plug 'altercation/vim-colors-solarized'
 Plug 'tomasr/molokai'
 Plug 'vim-scripts/phd'
-Plug 'derekwyatt/vim-fswitch'
+Plug 'derekwyatt/vim-fswitch', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'terryma/vim-multiple-cursors'
-Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'scrooloose/nerdtree'
 Plug 'gcmt/wildfire.vim'
 Plug 'Lokaltog/vim-easymotion'
@@ -495,3 +497,29 @@ let g:ycm_filetype_whitelist = {
 			\ "sh":1,
 			\ }
 " }
+
+" {    vim-easy-align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }
+
+" {    ale
+" 自定义某个语言的 lsp
+" let g:ale_linters_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+" 在 normal 启动检测
+let g:ale_lint_on_text_changed = 'normal'
+" 设置在从 insert 离开启动检测
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
+" 定义 lsp 的参数
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_c_clang_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+" }
+
