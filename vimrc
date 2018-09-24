@@ -510,8 +510,8 @@ let g:ale_echo_delay = 20
 let g:ale_lint_delay = 500
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 let g:ale_sign_column_always = 1
-let g:ale_sign_warning = '!'
-let g:ale_sign_error = 'X'
+let g:ale_sign_warning = 'W:'
+let g:ale_sign_error = 'E:'
 " 在 normal 启动检测
 let g:ale_lint_on_text_changed = 'normal'
 " 设置在从 insert 离开启动检测
