@@ -174,10 +174,10 @@ set hlsearch
 " 其他美化
 
 " 设置 gvim 显示字体
-if !has('unix')
+if has('unix')
+    set guifont=Ubuntu\ Mono\ 13
+else
     set guifont=Consolas:h12
-    "set guifont=Hermit\ NF:h11
-    "set guifont=UbuntuMono\ NF:h12
 endif
 " 禁止折行
 "set nowrap
@@ -364,7 +364,6 @@ func SetComment(line, comment)
             call append(a:line + 8 - 1, "================================================================*/")
         endif
         call append(a:line + 9 - 1, "")
-        call append(a:line + 10 - 1, "")
     endif
 endfunc
 
@@ -373,11 +372,11 @@ func SetTitle()
     if &filetype == 'make'
         call append(1 - 1,"") " 魔法数，嘻嘻
         call append(2 - 1,"") " 这是因为append函数是从下一行开始插入
-        call SetComment(4, "#") " 空两行
+        call SetComment(3, "#") " 空两行
     elseif expand("%:e") == 'py'
         call append(1 - 1,"")
         call append(2 - 1,"")
-        call SetComment(4, "#")
+        call SetComment(3, "#")
     else
         call SetComment(1, "*")
         let l:line = 10 " 定位说明的行数
@@ -402,15 +401,12 @@ endfunc
 let g:airline_theme="simple"
 " 这个是安装字体后必须设置此项
 "let g:airline_powerline_fonts = 1 
-" 关闭状态显示空白符号计数"
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#whitespace#symbol = '!'
+let g:airline_extensions = ['hunks', 'branch', 'quickfix', 'ale', 'ycm']
 " 状态栏符号设置
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-
-let g:airline_symbols.linenr = 'LN '
+let g:airline_section_z = airline#section#create(['%P ','%l:', '%c'])
 " }
 
 " {    indentLine
@@ -508,18 +504,25 @@ nmap ga <Plug>(EasyAlign)
 " {    ale
 " 自定义某个语言的 lsp
 " let g:ale_linters_explicit = 1
+let g:ale_set_quickfix = 1
 let g:ale_completion_delay = 500
 let g:ale_echo_delay = 20
 let g:ale_lint_delay = 500
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_sign_column_always = 1
+let g:ale_sign_warning = '!'
+let g:ale_sign_error = 'X'
 " 在 normal 启动检测
 let g:ale_lint_on_text_changed = 'normal'
 " 设置在从 insert 离开启动检测
 let g:ale_lint_on_insert_leave = 1
-let g:airline#extensions#ale#enabled = 1
 " 定义 lsp 的参数
-let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
 let g:ale_c_clang_options = '-Wall -O2 -std=c99'
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
 let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+" }
+
+" {    vim-startify
+let g:startify_change_to_dir = 0
 " }
 
