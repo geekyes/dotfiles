@@ -352,7 +352,7 @@ func SetComment(line, comment)
             call append(a:line + 0 - 1,"/".a:comment."================================================================")
         endif
         call append(a:line + 1 - 1, a:comment."                source for TODO")
-        call append(a:line + 2 - 1, a:comment."   ")
+        call append(a:line + 2 - 1, a:comment."")
         call append(a:line + 3 - 1, a:comment."   filename   : ".expand("%:t"))
         call append(a:line + 4 - 1, a:comment."   author     : chenjiang")
         call append(a:line + 5 - 1, a:comment."   date       : ".strftime("%Y-%m-%d"))
