@@ -1,16 +1,6 @@
-#!/usr/bin/python3
+# coding=utf-8
 
 import os
-
-# 安装zsh, vim, tmux
-def tool_install():
-    tool_install_list = ['zsh', 'vim', 'tmux', 'curl']
-    if ('posix' == os.name):
-        for i in tool_install_list:
-            if (not os.path.exists('/usr/bin/' + i)):
-                if (os.system('sudo apt install ' + i)):
-                    print (i + ' install failure!!!\n')
-                    exit(-1)
 
 def cfg():
     script_dir = os.path.abspath('.')
@@ -24,5 +14,4 @@ def cfg():
 
 
 if (__name__ == '__main__'):
-    tool_install()
     cfg()
