@@ -37,7 +37,7 @@ Plug 'kana/vim-textobj-indent', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'kana/vim-textobj-syntax', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'sgur/vim-textobj-parameter', { 'for':['c', 'cpp', 'python', 'vim'] }
-Plug 'jsfaint/gen_tags.vim', { 'for':['c', 'cpp', 'python', 'vim'] }
+Plug 'jsfaint/gen_tags.vim'
 Plug 'junegunn/vim-slash'
 Plug 'junegunn/vim-easy-align'
 Plug 'w0rp/ale', { 'for':['c', 'cpp', 'python', 'vim'] }
