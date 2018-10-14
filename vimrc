@@ -41,6 +41,7 @@ Plug 'jsfaint/gen_tags.vim'
 Plug 'junegunn/vim-slash'
 Plug 'junegunn/vim-easy-align'
 Plug 'w0rp/ale', { 'for':['c', 'cpp', 'python', 'vim'] }
+Plug 'hotoo/pangu.vim'
 """""""""""""""""""""
 
 Plug 'altercation/vim-colors-solarized'
@@ -48,7 +49,7 @@ Plug 'tomasr/molokai'
 Plug 'vim-scripts/phd'
 Plug 'derekwyatt/vim-fswitch', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'terryma/vim-multiple-cursors'
-Plug 'scrooloose/nerdcommenter', { 'for':['c', 'cpp', 'python', 'vim'] }
+Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'gcmt/wildfire.vim'
 Plug 'Lokaltog/vim-easymotion'
