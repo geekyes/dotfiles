@@ -16,43 +16,63 @@ else
     call plug#begin('~/vimfiles/plugged')
 endif
 
-"自己添加的插件
+" 漂亮的状态栏
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" 主题
+Plug 'flazz/vim-colorschemes'
+" 中文帮助
 Plug 'yianwillis/vimcdoc'
-Plug 'skywind3000/asyncrun.vim'
-Plug 'Yggdroot/indentLine', { 'for':['c', 'cpp', 'python', 'vim'] }
-Plug 'jiangmiao/auto-pairs'
+" 欢迎界面，显示最近打开文件
 Plug 'mhinz/vim-startify'
+" 异步运行命令
+Plug 'skywind3000/asyncrun.vim'
+" 强！模糊搜索文件， vim 缓冲区，最实用的文件函数列表
 if has('unix')
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 else
     Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 endif
+" 在 vim 里面使用 git
 Plug 'mhinz/vim-signify'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-fugitive'
+" vim 的文本对象，让你更快的骚操作
 Plug 'kana/vim-textobj-user', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'kana/vim-textobj-indent', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'kana/vim-textobj-syntax', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'python', 'vim'] }
 Plug 'sgur/vim-textobj-parameter', { 'for':['c', 'cpp', 'python', 'vim'] }
-Plug 'jsfaint/gen_tags.vim'
-Plug 'junegunn/vim-slash'
-Plug 'junegunn/vim-easy-align'
-Plug 'w0rp/ale', { 'for':['c', 'cpp', 'python', 'vim'] }
+" 中文排版
 Plug 'hotoo/pangu.vim'
-"""""""""""""""""""""
+" 自动清除搜索高亮
+Plug 'junegunn/vim-slash'
+" 对齐
+Plug 'junegunn/vim-easy-align'
+" 在打出成对符的前一个时，自动添加另一半
+Plug 'jiangmiao/auto-pairs'
+" 添加成对符
+Plug 'tpope/vim-surround'
+" 增强代码缩进显示
+Plug 'Yggdroot/indentLine', { 'for':['c', 'cpp', 'python', 'vim'] }
+" 自动生成 tags gtags
+Plug 'jsfaint/gen_tags.vim'
+" 代码静态检测，异步执行
+Plug 'w0rp/ale', { 'for':['c', 'cpp', 'python', 'vim'] }
 
-Plug 'altercation/vim-colors-solarized'
-Plug 'tomasr/molokai'
-Plug 'vim-scripts/phd'
-Plug 'derekwyatt/vim-fswitch', { 'for':['c', 'cpp', 'python', 'vim'] }
+" 源文件和头文件切换，要都在一个目录下
+Plug 'derekwyatt/vim-fswitch', { 'for':['c', 'cpp'] }
+" 多重光标
 Plug 'terryma/vim-multiple-cursors'
+" 添加注解
 Plug 'scrooloose/nerdcommenter'
+" 文件 (file tree) 浏览，简单管理
 Plug 'scrooloose/nerdtree'
+" 快速选中结对符内的文本
 Plug 'gcmt/wildfire.vim'
+" 快速移动
 Plug 'Lokaltog/vim-easymotion'
+" 强！但是我还不太会用 !^_^!
 if has('unix')
     Plug 'Valloric/YouCompleteMe'
 else
@@ -134,9 +154,8 @@ set wildmenu
 " 配色方案
 
 set background=dark
-"colorscheme solarized
-colorscheme molokai
-"colorscheme phd
+"colorscheme molokai
+colorscheme gruvbox
 " <<
 
 " >>
@@ -399,7 +418,7 @@ endfunc
 "let g:airline#extensions#tabline#enabled = 1
 "let g:airline#extensions#tabline#buffer_nr_show = 1
 " 设置主题
-let g:airline_theme="simple"
+let g:airline_theme="badwolf"
 " 这个是安装字体后必须设置此项
 "let g:airline_powerline_fonts = 1 
 let g:airline_extensions = ['hunks', 'branch', 'quickfix', 'ale', 'ycm']
@@ -417,7 +436,7 @@ nmap <Leader>i :IndentLinesToggle<CR>
 
 " {     asyncrun
 " 自动打开 quickfix window，其值为打开的高度
-let g:asyncrun_open = 80
+let g:asyncrun_open = 10
  
 " 任务结束时候响铃提醒
 let g:asyncrun_bell = 1
