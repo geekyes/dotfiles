@@ -57,9 +57,10 @@ Plug 'tpope/vim-surround'
 Plug 'Yggdroot/indentLine', { 'for':['c', 'cpp', 'python', 'vim'] }
 " 自动生成 tags gtags
 Plug 'jsfaint/gen_tags.vim'
-" 代码静态检测，异步执行
-Plug 'w0rp/ale', { 'for':['c', 'cpp', 'python', 'vim'] }
-
+if has('unix')
+    " 代码静态检测，异步执行
+    Plug 'w0rp/ale', { 'for':['c', 'cpp', 'python', 'vim'] }
+endif
 " 源文件和头文件切换，要都在一个目录下
 Plug 'derekwyatt/vim-fswitch', { 'for':['c', 'cpp'] }
 " 多重光标
@@ -521,26 +522,28 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 " }
 
-" {    ale
-" 自定义某个语言的 lsp
-" let g:ale_linters_explicit = 1
-let g:ale_set_quickfix = 1
-let g:ale_completion_delay = 500
-let g:ale_echo_delay = 20
-let g:ale_lint_delay = 500
-let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_sign_column_always = 1
-let g:ale_sign_warning = 'W:'
-let g:ale_sign_error = 'E:'
-" 在 normal 启动检测
-let g:ale_lint_on_text_changed = 'normal'
-" 设置在从 insert 离开启动检测
-let g:ale_lint_on_insert_leave = 1
-" 定义 lsp 的参数
-let g:ale_c_clang_options = '-Wall -O2 -std=c99'
-let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
-" }
+if has('unix')
+    " {    ale
+    " 自定义某个语言的 lsp
+    " let g:ale_linters_explicit = 1
+    let g:ale_set_quickfix = 1
+    let g:ale_completion_delay = 500
+    let g:ale_echo_delay = 20
+    let g:ale_lint_delay = 500
+    let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+    let g:ale_sign_column_always = 1
+    let g:ale_sign_warning = 'W:'
+    let g:ale_sign_error = 'E:'
+    " 在 normal 启动检测
+    let g:ale_lint_on_text_changed = 'normal'
+    " 设置在从 insert 离开启动检测
+    let g:ale_lint_on_insert_leave = 1
+    " 定义 lsp 的参数
+    let g:ale_c_clang_options = '-Wall -O2 -std=c99'
+    let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+    let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+    " }
+endif
 
 " {    vim-startify
 let g:startify_change_to_dir = 0
