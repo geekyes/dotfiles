@@ -78,8 +78,8 @@ if has('unix')
     Plug 'Valloric/YouCompleteMe'
 else
     " 安装教程： https://www.zhihu.com/question/25437050/answer/95662340
-    set runtimepath+=d:\tools\YouCompleteMe\YouCompleteMe
-    let g:ycm_server_python_interpreter = 'd:\tools\YouCompleteMe\python27_32bit\python.exe'
+    set runtimepath+=\tools\YouCompleteMe\YouCompleteMe
+    let g:ycm_server_python_interpreter = '\tools\YouCompleteMe\python27_32bit\python.exe'
 endif
 
 " 插件列表结束
