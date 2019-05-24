@@ -73,6 +73,9 @@ Plug 'scrooloose/nerdtree'
 Plug 'gcmt/wildfire.vim'
 " 快速移动
 Plug 'Lokaltog/vim-easymotion'
+" 记不住语法，爱。。。
+" win7 pre build bin 需要自己手动下载到 app/bin 下，完美运行，主要是搞不定编译环境
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " 强！但是我还不太会用 !^_^!
 if has('unix')
     Plug 'Valloric/YouCompleteMe'
