@@ -375,19 +375,18 @@ func SetComment(line, comment)
         else
             call append(a:line + 0 - 1,"/".a:comment."================================================================")
         endif
-        call append(a:line + 1 - 1, a:comment."                source for TODO")
-        call append(a:line + 2 - 1, a:comment."")
-        call append(a:line + 3 - 1, a:comment."   filename   : ".expand("%:t"))
-        call append(a:line + 4 - 1, a:comment."   author     : chenjiang")
-        call append(a:line + 5 - 1, a:comment."   date       : ".strftime("%Y-%m-%d"))
-        call append(a:line + 6 - 1, a:comment."   description: TODO")
-        call append(a:line + 7 - 1, a:comment."")
+        call append(a:line + 1 - 1, a:comment."")
+        call append(a:line + 2 - 1, a:comment."   filename   : ".expand("%:t"))
+        call append(a:line + 3 - 1, a:comment."   author     : chenjiang")
+        call append(a:line + 4 - 1, a:comment."   date       : ".strftime("%Y-%m-%d"))
+        call append(a:line + 5 - 1, a:comment."   description: TODO")
+        call append(a:line + 6 - 1, a:comment."")
         if (a:comment == "#")
-            call append(a:line + 8 - 1, a:comment."================================================================")
+            call append(a:line + 7 - 1, a:comment."================================================================")
         else
-            call append(a:line + 8 - 1, "================================================================*/")
+            call append(a:line + 7 - 1, "================================================================*/")
         endif
-        call append(a:line + 9 - 1, "")
+        call append(a:line + 8 - 1, "")
     endif
 endfunc
 
@@ -403,7 +402,7 @@ func SetTitle()
         call SetComment(3, "#")
     else
         call SetComment(1, "*")
-        let l:line = 10 " 定位说明的行数
+        let l:line = 9 " 定位说明的行数
         if expand("%:e") == 'h'
             call append(l:line + 0, "#ifndef ".toupper(expand("%:t:r"))."_H__")
             call append(l:line + 1, "#define ".toupper(expand("%:t:r"))."_H__")
