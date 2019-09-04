@@ -76,16 +76,25 @@ Plug 'Lokaltog/vim-easymotion'
 " 记不住语法，爱。。。
 " win7 pre build bin 需要自己手动下载到 app/bin 下，完美运行，主要是搞不定编译环境
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-" 强！但是我还不太会用 !^_^!
-if has('unix')
-    Plug 'Valloric/YouCompleteMe'
+" 自动补全相关
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+if has('nvim')
+    Plug 'ncm2/ncm2'
+    Plug 'roxma/nvim-yarp'
 else
-    " 安装教程： https://www.zhihu.com/question/25437050/answer/95662340
-    set runtimepath+=\tools\YouCompleteMe\YouCompleteMe
-    let g:ycm_server_python_interpreter = '\tools\YouCompleteMe\python27_32bit\python.exe'
+    Plug 'ncm2/ncm2'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
 endif
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-gtags'
+Plug 'ncm2/ncm2-pyclang'
+Plug 'ncm2/ncm2-jedi'
 
-" 插件列表结束
 call plug#end()
 " <<<<
 
@@ -246,50 +255,6 @@ set nofoldenable
 
 " *.cpp 和 *.h 间切换
 nmap <silent> <Leader>sw :FSHere<cr>
-" <<
-
-" >>
-" 基于语义的代码导航
-nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
-" 只能是 #include 或已打开的文件
-nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-" <<
-
-" >>
-" YCM 补全
-
-" YCM 补全菜单配色
-" 菜单
-"highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
-" 选中项
-"highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
-
-" 补全功能在注释中同样有效
-let g:ycm_complete_in_comments=1
-
-" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
-let g:ycm_confirm_extra_conf=0
-
-" 开启 YCM 标签补全引擎
-"let g:ycm_collect_identifiers_from_tags_files=0
-"" 引入 C++ 标准库 tags
-"set tags+=/data/misc/software/app/vim/stdcpp.tags
-"set tags+=/data/misc/software/app/vim/sys.tags
-
-" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-"inoremap ;; <C-x><C-o>
-
-" 补全内容不以分割子窗口形式出现，只显示补全列表
-set completeopt-=preview
-
-" 从第一个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion=1
-
-" 禁止缓存匹配项，每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
-
-" 语法关键字补全
-let g:ycm_seed_identifiers_with_syntax=1
 " <<
 
 " >>
@@ -502,21 +467,6 @@ let g:gen_tags#blacklist = ['$HOME']
 let g:NERDSpaceDelims=1
 " }
 
-" {    YouCompleteMe 附加配置
-" 触发语义补齐
-let g:ycm_semantic_triggers =  {
-			\ 'c,cpp,python': ['re!\w{2}'],
-			\ 'lua': ['re!\w{2}'],
-			\ }
-" 只有下面后缀的文件才启动分析
-let g:ycm_filetype_whitelist = { 
-			\ "c":1,
-			\ "cpp":1, 
-			\ "py":1,
-			\ "sh":1,
-			\ }
-" }
-
 " {    vim-easy-align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -549,5 +499,21 @@ endif
 
 " {    vim-startify
 let g:startify_change_to_dir = 0
+" }
+
+" {    none
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" }
+
+" {    ncm2 
+" path to directory where libclang.so can be found
+let g:ncm2_pyclang#library_path = '/c/Program Files/LLVM/lib'
+autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
 " }
 
