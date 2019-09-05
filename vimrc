@@ -74,22 +74,25 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " 自动补全相关
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-if has('nvim')
-    Plug 'ncm2/ncm2'
-    Plug 'roxma/nvim-yarp'
-else
-    Plug 'ncm2/ncm2'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
 " enable ncm2 for all buffers
 autocmd BufEnter * call ncm2#enable_for_buffer()
 " IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
 Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-gtags'
-Plug 'ncm2/ncm2-pyclang'
 Plug 'ncm2/ncm2-jedi'
+if has('unix') || has('nvim')
+    Plug 'ncm2/ncm2-gtags'
+    Plug 'ncm2/ncm2-pyclang'
+else
+    Plug 'roxma/vim-hug-neovim-rpc'
+    if has("win64")
+        Plug 'snakeleon/YouCompleteMe-x64'
+    else
+        Plug 'snakeleon/YouCompleteMe-x86'
+    endif
+endif
 
 call plug#end()
 " <<<<
@@ -484,9 +487,55 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 " }
 
-" {    ncm2 
-" path to directory where libclang.so can be found
-let g:ncm2_pyclang#library_path = '/c/Program Files/LLVM/lib'
-autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
-" }
+if has('unix') || has('nvim')
+    " {    ncm2_pyclang 
+    " path to directory where libclang.xx can be found
+    if ('unix')
+    else
+        let g:ncm2_pyclang#library_path = '/c/Program Files/LLVM/lib'
+    endif
+    autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
+    " }
+else
+    " >>	
+    " 基于语义的代码导航	
+    nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>	
+    " 只能是 #include 或已打开的文件	
+    nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>	
+    " <<	
+    " >>	
+    " YCM 补全	
+    " YCM 补全菜单配色	
+    " 菜单	
+    "highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5	
+    " 选中项	
+    "highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900	
+    " 补全功能在注释中同样有效	
+    let g:ycm_complete_in_comments=1	
+    " 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示	
+    let g:ycm_confirm_extra_conf=0	
+    " 补全内容不以分割子窗口形式出现，只显示补全列表	
+    set completeopt-=preview	
+    " 从第一个键入字符就开始罗列匹配项	
+    let g:ycm_min_num_of_chars_for_completion=1	
+    " 禁止缓存匹配项，每次都重新生成匹配项	
+    let g:ycm_cache_omnifunc=0	
+    " 语法关键字补全	
+    let g:ycm_seed_identifiers_with_syntax=1	
+    " <<
+    " {    YouCompleteMe 附加配置	
+    " 触发语义补齐	
+    let g:ycm_semantic_triggers =  {	
+                \ 'c,cpp,python': ['re!\w{2}'],	
+                \ 'lua': ['re!\w{2}'],	
+                \ }	
+    " 只有下面后缀的文件才启动分析	
+    let g:ycm_filetype_whitelist = { 	
+                \ "c":1,	
+                \ "cpp":1, 	
+                \ "py":1,	
+                \ "sh":1,	
+                \ }	
+    " }
+endif
 
